@@ -132,7 +132,7 @@ def main():
            #level_loss_val += level_losses[i](gen_pyr[i], x[i])
         #level_loss_vals = level_losses[i](gen_pyr[i]) for i in range(args.nlevels)]
         opt.zero_grad()
-        total_loss = recon_loss_val + level_loss_val
+        total_loss = recon_loss_val #+ level_loss_val
         total_loss.backward()
         opt.step()
 
@@ -150,6 +150,7 @@ def main():
                 ax.imshow(output_img)
                 plt.savefig(os.path.join(args.outdir, '{}.png'.format(epoch)), bbox_inches='tight'), 
                 plt.close()
+                np.save(os.path.join(args.outdir, '{}-img'.format(epoch)), output_img)
 
 if __name__ == '__main__':
     main()
